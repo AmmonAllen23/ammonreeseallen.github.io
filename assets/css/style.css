@@ -1,0 +1,19 @@
+#contact {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#contact h1, #contact h2 {
+    color: #333;
+}
+
+#contact p a {
+    color: #007acc;
+    text-decoration: none;
+
+}
+
+#contact p a:hover {
+    text-decoration: underline;
+}
