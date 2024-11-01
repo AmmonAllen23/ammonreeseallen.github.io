@@ -1,3 +1,58 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navigation bar styling */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white; /* White background */
+    color: black; /* Black text for readability */
+    padding: 1rem;
+    text-align: left;
+    width: auto;
+    border-bottom: 1px solid #ccc; /* Optional: subtle bottom border */
+}
+
+nav a {
+    color: black; /* Ensures links in the nav are also black */
+    text-decoration: none;
+    margin-right: 1rem; /* Spacing between links */
+}
+
+nav a:hover {
+    color: #007acc; /* Optional: add a highlight color on hover */
+    text-decoration: underline; /* Underline on hover for accessibility */
+}
+/* Main content styling */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 3rem; /* Adjust to create space below the nav */
+}
+
+.welcome {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.welcome img {
+    max-width: 30%; /* Makes sure the image doesn’t overflow its container */
+    height: auto; /* Maintains the aspect ratio */
+    margin-top: 1rem; /* Adds some space above the image */
+    border-radius: 8px; /* Optional: rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: subtle shadow */
+}
+
+/* Contact section styling */
 #contact {
     max-width: 600px;
     margin: 0 auto;
@@ -11,40 +66,10 @@
 #contact p a {
     color: #007acc;
     text-decoration: none;
-
 }
 
 #contact p a:hover {
     text-decoration: underline;
-}
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing: border-box;
-
-}
-
-nav{
-    width: 100%;
-    background-color: #333;
-    color: white;
-    padding: 1rem;
-    text-align: center;
-}
-
-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-    max-width: 800px;
-    margin: auto;
-}
-
-.welcome {
-    text-align: center;
-    margin-bottom: 2rem;
 }
 
 section img {
