@@ -94,6 +94,25 @@ body {
     border-bottom: 3px solid #005f99;
 }
 
+/* Styling for Resume Page Navigation in Header */
+#resume-header nav {
+    background-color: white; /* Matches the other pages' nav background */
+    padding: 1rem;
+    border-bottom: 1px solid #ccc; /* Consistent subtle border */
+    margin-bottom: 1rem; /* Space between nav and rest of the header */
+}
+
+#resume-header nav a {
+    color: black; /* Match link color with other pages */
+    text-decoration: none;
+    margin-right: 1rem;
+}
+
+#resume-header nav a:hover {
+    color: #007acc;
+    text-decoration: underline;
+}
+
 #resume-header h1 {
     font-size: 2rem;
     margin-bottom: 0.5rem;
@@ -110,6 +129,13 @@ body {
 
 #resume-header a:hover {
     text-decoration: underline;
+}
+
+/* Ensure spacing between nav and other header content */
+#resume-header h1,
+#resume-header p,
+#resume-header button {
+    margin-top: 1rem;
 }
 
 
