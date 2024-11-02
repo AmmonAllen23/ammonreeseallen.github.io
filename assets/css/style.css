@@ -86,7 +86,9 @@ body {
 
 /* Resume Page Header Styling */
 #resume-header {
-    text-align: center;
+    display: flex;
+    flex-direction: column; /* Arrange items vertically */
+    align-items: center; /* Center-aligns other content horizontally */
     background-color: #007acc;
     color: white;
     padding: 1.5rem;
@@ -96,11 +98,11 @@ body {
 
 /* Styling for Resume Page Navigation in Header */
 #resume-header nav {
-    display: inline-block; /* Shrinks the nav box to fit around the text */
+    align-self: flex-start; /* Aligns the nav to the left */
     background-color: white;
-    padding: 0.3rem 0.5rem; /* Minimal padding for a compact fit */
-    border-bottom: 1px solid #ccc; /* Optional: subtle bottom border */
-    margin-bottom: 0.5rem; /* Space between nav and rest of header */
+    padding: 0.3rem 0.5rem; /* Minimal padding for compact fit */
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 0.5rem;
     line-height: 1.2;
 }
 
@@ -125,7 +127,7 @@ body {
 }
 
 #resume-header a {
-    color: #f1f1f1;
+    color: #f1f1f1; /* Matches your other header links */
     text-decoration: none;
 }
 
