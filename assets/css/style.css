@@ -96,14 +96,15 @@ body {
 
 /* Styling for Resume Page Navigation in Header */
 #resume-header nav {
-    background-color: white; /* Matches the other pages' nav background */
-    padding: 1rem;
-    border-bottom: 1px solid #ccc; /* Consistent subtle border */
-    margin-bottom: 1rem; /* Space between nav and rest of the header */
+    background-color: white; /* White background */
+    padding: 0.3rem 0.5rem; /* Smaller padding to make the background fit closely */
+    border-bottom: 1px solid #ccc; /* Optional: subtle bottom border */
+    margin-bottom: 0.5rem; /* Slight space between nav and resume header */
+    line-height: 1.2; /* Adjusted line height to make it more compact */
 }
 
 #resume-header nav a {
-    color: black; /* Match link color with other pages */
+    color: black;
     text-decoration: none;
     margin-right: 1rem;
 }
