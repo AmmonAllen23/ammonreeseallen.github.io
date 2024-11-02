@@ -84,8 +84,8 @@ body {
     background-color: #f9f9f9;
 }
 
-/* Header Styling */
-header {
+/* Resume Page Header Styling */
+#resume-header {
     text-align: center;
     background-color: #007acc;
     color: white;
@@ -94,23 +94,24 @@ header {
     border-bottom: 3px solid #005f99;
 }
 
-header h1 {
+#resume-header h1 {
     font-size: 2rem;
     margin-bottom: 0.5rem;
 }
 
-header p {
+#resume-header p {
     margin-bottom: 0.3rem;
 }
 
-header a {
+#resume-header a {
     color: #f1f1f1;
     text-decoration: none;
 }
 
-header a:hover {
+#resume-header a:hover {
     text-decoration: underline;
 }
+
 
 /* Download Button Styling */
 #download-resume {
