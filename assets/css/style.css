@@ -7,9 +7,7 @@
 
 /* Navigation bar styling */
 nav {
-    position: fixed;
-    top: 0;
-    left: 0;
+    
     background-color: white; /* White background */
     color: black; /* Black text for readability */
     padding: 1rem;
