@@ -6,23 +6,13 @@
         <link rel="stylesheet" href="assets/css/style.css">
     </head>
     <body>
-        <!-- navigation Bar -->
-         <header>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="projects.html">Projects</a></li>
-                    <li><a href="resume.html">Resume</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>    
-         </header>
+       
 
          <!-- Main Content-->
           <main>
             <section class="welcome">
                 <h1>Welcome to my website!</h1>
+                    <p>**This website is currently a work in progress**</p>
                     <p>Get to know more about me, my projects, and my journey.</p>
                     <img src="images/TxFamilyPic.jpg" alt="This is my family">
                     <p class="caption"> This is my family </p> 
@@ -35,6 +25,19 @@
            </footer>
 
            <script src="assets/js/script.js"></script>
+           <script>
+            fetch('includes/navbar.html')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok.");
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    document.body.insertAdjacentHTML('afterbegin', html);
+                })
+                .catch(error => console.error('Error loading navbar:', error));
+            </script>
     </body>
 
 </html>

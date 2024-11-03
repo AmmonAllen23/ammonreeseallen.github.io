@@ -7,18 +7,7 @@
         <link rel="stylesheet" href="assets/css/style.css">
     </head>
     <body>
-        <header>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="projects.html">Projects</a></li>
-                    <li><a href="resume.html">Resume</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-        </header>
-
+        
         <main>
             <section id="contact">
                 <h1>Contact Me</h1>
@@ -42,6 +31,20 @@
         <footer>
             <p>&copy; 2024 Ammon Reese Allen</p>
         </footer>
+
+        <script>
+            fetch('includes/navbar.html')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok.");
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    document.body.insertAdjacentHTML('afterbegin', html);
+                })
+                .catch(error => console.error('Error loading navbar:', error));
+            </script>
     </body>
 
 </html>

@@ -5,25 +5,49 @@
     box-sizing: border-box;
 }
 
-/* Navigation bar styling */
+/* Consistent Navigation Bar Styling */
 nav {
-    background-color: white; /* White background */
-    color: black; /* Black text for readability */
+    background-color: white;
+    color: black;
     padding: 1rem;
     text-align: left;
-    width: auto;
-    border-bottom: 1px solid #ccc; /* Optional: subtle bottom border */
+    border-bottom: 1px solid #ccc;
+    width: 100%; /* Full-width navbar */
+    position: fixed; /* Keeps it fixed at the top */
+    top: 0;
+    z-index: 1000; /* Stays above other content */
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin-right: 1rem;
 }
 
 nav a {
-    color: black; /* Ensures links in the nav are also black */
+    color: black;
     text-decoration: none;
-    margin-right: 1rem; /* Spacing between links */
 }
 
 nav a:hover {
-    color: #007acc; /* Optional: add a highlight color on hover */
-    text-decoration: underline; /* Underline on hover for accessibility */
+    color: #007acc;
+    text-decoration: underline;
+}
+
+h1{
+    text-align: center;
+    margin-top: 4rem;
+}
+
+/* Adjust main content spacing when nav is fixed */
+main {
+    margin-top: 4rem; /* Adjust to provide space below navbar */
 }
 
 /* Main content styling */
@@ -92,6 +116,7 @@ body {
     background-color: #007acc;
     color: white;
     padding: 1.5rem;
+    padding-top: 2rem; 
     margin-bottom: 2rem;
     border-bottom: 3px solid #005f99;
 }
@@ -119,6 +144,7 @@ body {
 
 #resume-header h1 {
     font-size: 2rem;
+    margin-top: 2rem;
     margin-bottom: 0.5rem;
 }
 

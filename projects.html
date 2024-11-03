@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>My Projects</title>
+</head>
+<body>
+
+     <h1>My Projects</h1>
+
+    <section class="Featured Projects">
+        <h2>Featured Projects</h2>
+    </section>
+
+    <section class="Personal Projects">
+        <h2>Personal Projects</h2>
+
+    </section>
+
+    <section class="University Projects">
+        <h2>University Projects</h2>
+    </section>
+    
+    <script>
+        fetch('includes/navbar.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok.");
+                }
+                return response.text();
+            })
+            .then(html => {
+                document.body.insertAdjacentHTML('afterbegin', html);
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+        </script>
+
+</body>
+</html>
