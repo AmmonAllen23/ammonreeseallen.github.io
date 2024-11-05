@@ -1,8 +1,49 @@
 // Canvas and context
 let canvas, ctx;
 
-// Set the maximum canvas dimensions relative to the viewport
+// Responsive canvas dimensions
 let canvasWidth, canvasHeight;
+
+// Game state variables
+let gameStarted = false;
+let gameOver = false;
+let score = 0;
+let highScore = 0;
+let gravity = 0.5;
+let pipeSpeed = -4;
+let pipeGap; // Set later based on canvas height
+let lastPipeTime = 0;
+let lastTimestamp = 0;
+
+// Image paths and variables
+const images = {
+    background: 'images/flappybirdbg.png',
+    bird: 'images/flappybird.png',
+    topPipe: 'images/toppipe.png',
+    bottomPipe: 'images/bottompipe.png'
+};
+let backgroundImg, birdImg, topPipeImg, bottomPipeImg;
+
+// Function to preload images and initialize them in variables
+function preloadImages(sources, callback) {
+    let loadedImages = 0;
+    const totalImages = Object.keys(sources).length;
+    const imgs = {};
+
+    for (let key in sources) {
+        imgs[key] = new Image();
+        imgs[key].src = sources[key];
+        imgs[key].onload = () => {
+            loadedImages++;
+            if (loadedImages === totalImages) {
+                callback(imgs);
+            }
+        };
+        imgs[key].onerror = () => {
+            console.error(`Failed to load image: ${sources[key]}`);
+        };
+    }
+}
 
 // Function to initialize the game canvas and context
 function initializeCanvas() {
@@ -13,41 +54,27 @@ function initializeCanvas() {
     }
 
     // Set canvas dimensions based on viewport size
-    canvasHeight = Math.min(window.innerHeight * 0.7, 480); // 70% of viewport height, max 480px
+    canvasHeight = Math.min(window.innerHeight * 0.85, 600); // 85% of viewport height, max 600px
     canvasWidth = canvasHeight * (3 / 4); // Maintain a 3:4 aspect ratio
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     ctx = canvas.getContext('2d');
+
+    // Shift the canvas down slightly with a top margin
+    canvas.style.marginTop = "40px";
+
+    // Adjust the pipe gap based on the new canvas height (slightly increased)
+    pipeGap = canvasHeight / 4;
+
     return true;
 }
 
-// Game state variables
-let gameStarted = false;
-let gameOver = false;
-let score = 0;
-let highScore = 0;
-let gravity = 0.5;
-let pipeSpeed = -3; 
-let pipeGap = canvasHeight / 4;
-let lastPipeTime = 0;
-let lastTimestamp = 0;
-
-// Load images
-const backgroundImg = new Image();
-backgroundImg.src = 'images/flappybirdbg.png';
-const birdImg = new Image();
-birdImg.src = 'images/flappybird.png';
-const topPipeImg = new Image();
-topPipeImg.src = 'images/toppipe.png';
-const bottomPipeImg = new Image();
-bottomPipeImg.src = 'images/bottompipe.png';
-
 // Bird properties
 const bird = {
-    x: canvasWidth / 8,
-    y: canvasHeight / 2,
-    width: canvasWidth * 0.1,
-    height: canvasHeight * 0.06,
+    x: 360 / 8,
+    y: 640 / 2,
+    width: 34,
+    height: 24,
     velocityY: 0
 };
 
@@ -56,12 +83,10 @@ const pipes = [];
 
 // Start the game with a prompt
 function drawStartPrompt() {
-    if (ctx) {
-        ctx.fillStyle = "#FFFFFF";
-        ctx.font = `${canvasWidth * 0.06}px Arial`;
-        ctx.textAlign = "center";
-        ctx.fillText("Press SPACE to Start", canvasWidth / 2, canvasHeight / 2);
-    }
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = `${canvasWidth * 0.06}px Arial`;
+    ctx.textAlign = "center";
+    ctx.fillText("Press SPACE to Start", canvasWidth / 2, canvasHeight / 2);
 }
 
 // Game Loop
@@ -81,10 +106,7 @@ function gameLoop(timestamp) {
 function startGame() {
     if (!initializeCanvas()) return;
 
-    // Remove "Return to Projects" button if it exists
-    const returnButton = document.getElementById("returnButton");
-    if (returnButton) returnButton.remove();
-
+    // Reset game state
     bird.y = canvasHeight / 2;
     bird.velocityY = 0;
     pipes.length = 0;
@@ -93,6 +115,11 @@ function startGame() {
     lastTimestamp = performance.now();
     gameOver = false;
     gameStarted = true;
+
+    // Remove "Return to Projects" button if it exists
+    const returnButton = document.getElementById("returnButton");
+    if (returnButton) returnButton.remove();
+
     createPipe();
     gameLoop(performance.now());
 }
@@ -104,8 +131,8 @@ function draw() {
 
     // Draw pipes
     pipes.forEach(pipe => {
-        ctx.drawImage(topPipeImg, Math.round(pipe.x), pipe.y, canvasWidth * 0.15, canvasHeight * 0.7);
-        ctx.drawImage(bottomPipeImg, Math.round(pipe.x), pipe.y + canvasHeight * 0.7 + pipeGap, canvasWidth * 0.15, canvasHeight * 0.7);
+        ctx.drawImage(topPipeImg, Math.round(pipe.x), pipe.y, canvasWidth * 0.15, canvasHeight * 0.8);
+        ctx.drawImage(bottomPipeImg, Math.round(pipe.x), pipe.y + canvasHeight * 0.8 + pipeGap, canvasWidth * 0.15, canvasHeight * 0.8);
     });
 
     // Draw bird
@@ -115,11 +142,11 @@ function draw() {
     ctx.fillStyle = '#FFFFFF';
     ctx.font = `${canvasWidth * 0.06}px Arial`;
     ctx.textAlign = 'left';
-    ctx.fillText(`Score: ${Math.floor(score)}`, 10, 25);
+    ctx.fillText(`Score: ${Math.floor(score)}`, 15, 30);
 
     // Display high score if the game is over
     if (gameOver) {
-        ctx.fillText(`High Score: ${highScore}`, 10, 50);
+        ctx.fillText(`High Score: ${highScore}`, 15, 60);
     }
 }
 
@@ -128,7 +155,7 @@ function update(deltaTime) {
     if (!gameStarted) return;
 
     // Bird gravity
-    bird.velocityY += gravity * (deltaTime / 16.67);
+    bird.velocityY += gravity * (deltaTime / 16.67); // Normalize gravity for consistent behavior
     bird.y += bird.velocityY * (deltaTime / 16.67);
 
     // Pipe movement and collision
@@ -154,8 +181,8 @@ function update(deltaTime) {
         pipes.shift();
     }
 
-    // Create a new pipe based on elapsed time
-    if (performance.now() - lastPipeTime >= 1200) {
+    // Create a new pipe every 1000 ms
+    if (performance.now() - lastPipeTime >= 1000) {
         createPipe();
         lastPipeTime = performance.now();
     }
@@ -171,13 +198,13 @@ function update(deltaTime) {
 function createPipe() {
     const pipeY = -Math.floor(Math.random() * (canvasHeight / 2)) - 100;
     pipes.push({ x: canvasWidth, y: pipeY, passed: false });
-    pipes.push({ x: canvasWidth, y: pipeY + canvasHeight * 0.7 + pipeGap, passed: false });
+    pipes.push({ x: canvasWidth, y: pipeY + canvasHeight * 0.8 + pipeGap, passed: false });
 }
 
 // Collision detection
 function collision(bird, pipe) {
-    const pipeTop = { x: pipe.x, y: pipe.y, width: canvasWidth * 0.15, height: canvasHeight * 0.7 };
-    const pipeBottom = { x: pipe.x, y: pipe.y + canvasHeight * 0.7 + pipeGap, width: canvasWidth * 0.15, height: canvasHeight * 0.7 };
+    const pipeTop = { x: pipe.x, y: pipe.y, width: canvasWidth * 0.15, height: canvasHeight * 0.8 };
+    const pipeBottom = { x: pipe.x, y: pipe.y + canvasHeight * 0.8 + pipeGap, width: canvasWidth * 0.15, height: canvasHeight * 0.8 };
 
     return (
         (bird.x < pipeTop.x + pipeTop.width &&
@@ -200,7 +227,7 @@ function displayGameOver() {
     ctx.fillText(`Score: ${Math.floor(score)}`, canvasWidth / 2, canvasHeight / 2 + 40);
     ctx.fillText(`High Score: ${highScore}`, canvasWidth / 2, canvasHeight / 2 + 80);
 
-    // Create a button overlay to close the game and return to projects
+    // Create "Return to Projects" button
     const returnButton = document.createElement("button");
     returnButton.id = "returnButton";
     returnButton.textContent = "Return to Projects";
@@ -214,7 +241,6 @@ function displayGameOver() {
     returnButton.style.zIndex = "1000";
     document.body.appendChild(returnButton);
 
-    // Event listener to close modal and remove button when clicked
     returnButton.addEventListener("click", () => {
         closeGameModal();
         returnButton.remove();
@@ -245,18 +271,25 @@ document.addEventListener('keydown', (event) => {
         } else if (gameOver) {
             startGame();
         } else {
-            bird.velocityY = -9;
+            bird.velocityY = -8.5;
         }
     }
 });
 
 // Initialize game on page load
 function initializeGame() {
-    if (initializeCanvas()) {
-        loadHighScore();
-        drawStartPrompt();
-    }
+    preloadImages(images, (loadedImages) => {
+        backgroundImg = loadedImages.background;
+        birdImg = loadedImages.bird;
+        topPipeImg = loadedImages.topPipe;
+        bottomPipeImg = loadedImages.bottomPipe;
+
+        if (initializeCanvas()) {
+            loadHighScore();
+            drawStartPrompt();
+        }
+    });
 }
 
-// Call initializeGame to set up the canvas and prompt
+// Start the game
 initializeGame();
