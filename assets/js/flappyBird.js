@@ -1,7 +1,7 @@
 // Canvas and context
 let canvas, ctx;
 
-// Responsive canvas dimensions
+// Set the maximum canvas dimensions relative to the viewport
 let canvasWidth, canvasHeight;
 
 // Function to initialize the game canvas and context
@@ -12,9 +12,9 @@ function initializeCanvas() {
         return false;
     }
 
-    // Set canvas dimensions based on window size
-    canvasWidth = Math.min(window.innerWidth * 0.8, 400); // Max width 400px, adjust for viewport
-    canvasHeight = canvasWidth * 1.5; // Maintain aspect ratio (3:4)
+    // Set canvas dimensions based on viewport size
+    canvasHeight = Math.min(window.innerHeight * 0.7, 480); // 70% of viewport height, max 480px
+    canvasWidth = canvasHeight * (3 / 4); // Maintain a 3:4 aspect ratio
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     ctx = canvas.getContext('2d');
@@ -46,8 +46,8 @@ bottomPipeImg.src = 'images/bottompipe.png';
 const bird = {
     x: canvasWidth / 8,
     y: canvasHeight / 2,
-    width: 34,
-    height: 24,
+    width: canvasWidth * 0.1,
+    height: canvasHeight * 0.06,
     velocityY: 0
 };
 
@@ -58,7 +58,7 @@ const pipes = [];
 function drawStartPrompt() {
     if (ctx) {
         ctx.fillStyle = "#FFFFFF";
-        ctx.font = "20px Arial";
+        ctx.font = `${canvasWidth * 0.06}px Arial`;
         ctx.textAlign = "center";
         ctx.fillText("Press SPACE to Start", canvasWidth / 2, canvasHeight / 2);
     }
@@ -104,8 +104,8 @@ function draw() {
 
     // Draw pipes
     pipes.forEach(pipe => {
-        ctx.drawImage(topPipeImg, Math.round(pipe.x), pipe.y, 52, canvasHeight * 0.7);
-        ctx.drawImage(bottomPipeImg, Math.round(pipe.x), pipe.y + canvasHeight * 0.7 + pipeGap, 52, canvasHeight * 0.7);
+        ctx.drawImage(topPipeImg, Math.round(pipe.x), pipe.y, canvasWidth * 0.15, canvasHeight * 0.7);
+        ctx.drawImage(bottomPipeImg, Math.round(pipe.x), pipe.y + canvasHeight * 0.7 + pipeGap, canvasWidth * 0.15, canvasHeight * 0.7);
     });
 
     // Draw bird
@@ -113,7 +113,7 @@ function draw() {
 
     // Draw score
     ctx.fillStyle = '#FFFFFF';
-    ctx.font = '20px Arial';
+    ctx.font = `${canvasWidth * 0.06}px Arial`;
     ctx.textAlign = 'left';
     ctx.fillText(`Score: ${Math.floor(score)}`, 10, 25);
 
@@ -136,7 +136,7 @@ function update(deltaTime) {
         pipe.x += pipeSpeed * (deltaTime / 16.67);
 
         // Check if bird passes pipe
-        if (!pipe.passed && bird.x > pipe.x + 52) {
+        if (!pipe.passed && bird.x > pipe.x + canvasWidth * 0.15) {
             pipe.passed = true;
             score += 0.5;
         }
@@ -149,7 +149,7 @@ function update(deltaTime) {
     });
 
     // Remove off-screen pipes
-    if (pipes.length > 0 && pipes[0].x < -52) {
+    if (pipes.length > 0 && pipes[0].x < -canvasWidth * 0.15) {
         pipes.shift();
         pipes.shift();
     }
@@ -176,8 +176,8 @@ function createPipe() {
 
 // Collision detection
 function collision(bird, pipe) {
-    const pipeTop = { x: pipe.x, y: pipe.y, width: 52, height: canvasHeight * 0.7 };
-    const pipeBottom = { x: pipe.x, y: pipe.y + canvasHeight * 0.7 + pipeGap, width: 52, height: canvasHeight * 0.7 };
+    const pipeTop = { x: pipe.x, y: pipe.y, width: canvasWidth * 0.15, height: canvasHeight * 0.7 };
+    const pipeBottom = { x: pipe.x, y: pipe.y + canvasHeight * 0.7 + pipeGap, width: canvasWidth * 0.15, height: canvasHeight * 0.7 };
 
     return (
         (bird.x < pipeTop.x + pipeTop.width &&
@@ -194,7 +194,7 @@ function collision(bird, pipe) {
 // Game Over display
 function displayGameOver() {
     ctx.fillStyle = '#FFFFFF';
-    ctx.font = '28px Arial';
+    ctx.font = `${canvasWidth * 0.08}px Arial`;
     ctx.textAlign = 'center';
     ctx.fillText('Game Over', canvasWidth / 2, canvasHeight / 2);
     ctx.fillText(`Score: ${Math.floor(score)}`, canvasWidth / 2, canvasHeight / 2 + 40);
