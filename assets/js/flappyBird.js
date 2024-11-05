@@ -1,6 +1,10 @@
 // Canvas and context
 let canvas, ctx;
 
+// Set the canvas dimensions (adjusted for a smaller size)
+const canvasWidth = 320;
+const canvasHeight = 480;
+
 // Function to initialize the game canvas and context
 function initializeCanvas() {
     canvas = document.getElementById('gameCanvas');
@@ -8,6 +12,8 @@ function initializeCanvas() {
         console.error("Game canvas not found.");
         return false;
     }
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
     ctx = canvas.getContext('2d');
     return true;
 }
@@ -18,10 +24,10 @@ let gameOver = false;
 let score = 0;
 let highScore = 0;
 let gravity = 0.5;
-let pipeSpeed = -4;
-let pipeGap = 640 / 4.5;
-let lastPipeTime = 0; // Tracks time since the last pipe was created
-let lastTimestamp = 0; // Tracks time for deltaTime calculation
+let pipeSpeed = -3; // Adjusted speed to suit the smaller screen
+let pipeGap = canvasHeight / 4;
+let lastPipeTime = 0;
+let lastTimestamp = 0;
 
 // Load images
 const backgroundImg = new Image();
@@ -35,8 +41,8 @@ bottomPipeImg.src = 'images/bottompipe.png';
 
 // Bird properties
 const bird = {
-    x: 360 / 8,
-    y: 640 / 2,
+    x: canvasWidth / 8,
+    y: canvasHeight / 2,
     width: 34,
     height: 24,
     velocityY: 0
@@ -49,9 +55,9 @@ const pipes = [];
 function drawStartPrompt() {
     if (ctx) {
         ctx.fillStyle = "#FFFFFF";
-        ctx.font = "24px Arial";
+        ctx.font = "20px Arial";
         ctx.textAlign = "center";
-        ctx.fillText("Press SPACE to Start", 360 / 2, 640 / 2);
+        ctx.fillText("Press SPACE to Start", canvasWidth / 2, canvasHeight / 2);
     }
 }
 
@@ -70,13 +76,13 @@ function gameLoop(timestamp) {
 
 // Start or Restart the Game
 function startGame() {
-    if (!initializeCanvas()) return; // Check if the canvas was initialized
+    if (!initializeCanvas()) return;
 
     // Remove "Return to Projects" button if it exists
     const returnButton = document.getElementById("returnButton");
     if (returnButton) returnButton.remove();
 
-    bird.y = 640 / 2;
+    bird.y = canvasHeight / 2;
     bird.velocityY = 0;
     pipes.length = 0;
     score = 0;
@@ -91,12 +97,12 @@ function startGame() {
 // Draw everything
 function draw() {
     // Draw background
-    ctx.drawImage(backgroundImg, 0, 0, 360, 640);
+    ctx.drawImage(backgroundImg, 0, 0, canvasWidth, canvasHeight);
 
     // Draw pipes
     pipes.forEach(pipe => {
-        ctx.drawImage(topPipeImg, Math.round(pipe.x), pipe.y, 64, 512);
-        ctx.drawImage(bottomPipeImg, Math.round(pipe.x), pipe.y + 512 + pipeGap, 64, 512);
+        ctx.drawImage(topPipeImg, Math.round(pipe.x), pipe.y, 52, 400);
+        ctx.drawImage(bottomPipeImg, Math.round(pipe.x), pipe.y + 400 + pipeGap, 52, 400);
     });
 
     // Draw bird
@@ -104,13 +110,13 @@ function draw() {
 
     // Draw score
     ctx.fillStyle = '#FFFFFF';
-    ctx.font = '24px Arial';
+    ctx.font = '20px Arial';
     ctx.textAlign = 'left';
-    ctx.fillText(`Score: ${Math.floor(score)}`, 15, 30);
+    ctx.fillText(`Score: ${Math.floor(score)}`, 10, 25);
 
     // Display high score if the game is over
     if (gameOver) {
-        ctx.fillText(`High Score: ${highScore}`, 15, 60);
+        ctx.fillText(`High Score: ${highScore}`, 10, 50);
     }
 }
 
@@ -119,7 +125,7 @@ function update(deltaTime) {
     if (!gameStarted) return;
 
     // Bird gravity
-    bird.velocityY += gravity * (deltaTime / 16.67); // Normalize gravity for consistent behavior
+    bird.velocityY += gravity * (deltaTime / 16.67);
     bird.y += bird.velocityY * (deltaTime / 16.67);
 
     // Pipe movement and collision
@@ -127,7 +133,7 @@ function update(deltaTime) {
         pipe.x += pipeSpeed * (deltaTime / 16.67);
 
         // Check if bird passes pipe
-        if (!pipe.passed && bird.x > pipe.x + 64) {
+        if (!pipe.passed && bird.x > pipe.x + 52) {
             pipe.passed = true;
             score += 0.5;
         }
@@ -140,19 +146,19 @@ function update(deltaTime) {
     });
 
     // Remove off-screen pipes
-    if (pipes.length > 0 && pipes[0].x < -64) {
+    if (pipes.length > 0 && pipes[0].x < -52) {
         pipes.shift();
         pipes.shift();
     }
 
     // Create a new pipe based on elapsed time
-    if (performance.now() - lastPipeTime >= 1000) { // 2000 ms (2 seconds) between pipes
+    if (performance.now() - lastPipeTime >= 1200) {
         createPipe();
         lastPipeTime = performance.now();
     }
 
     // Check if bird hits the ground or flies off-screen
-    if (bird.y + bird.height > 640 || bird.y < 0) {
+    if (bird.y + bird.height > canvasHeight || bird.y < 0) {
         gameOver = true;
         checkHighScore();
     }
@@ -160,15 +166,15 @@ function update(deltaTime) {
 
 // Pipe creation
 function createPipe() {
-    const pipeY = -Math.floor(Math.random() * 256) - 128;
-    pipes.push({ x: 360, y: pipeY, passed: false });
-    pipes.push({ x: 360, y: pipeY + 512 + pipeGap, passed: false });
+    const pipeY = -Math.floor(Math.random() * 200) - 100;
+    pipes.push({ x: canvasWidth, y: pipeY, passed: false });
+    pipes.push({ x: canvasWidth, y: pipeY + 400 + pipeGap, passed: false });
 }
 
 // Collision detection
 function collision(bird, pipe) {
-    const pipeTop = { x: pipe.x, y: pipe.y, width: 64, height: 512 };
-    const pipeBottom = { x: pipe.x, y: pipe.y + 512 + pipeGap, width: 64, height: 512 };
+    const pipeTop = { x: pipe.x, y: pipe.y, width: 52, height: 400 };
+    const pipeBottom = { x: pipe.x, y: pipe.y + 400 + pipeGap, width: 52, height: 400 };
 
     return (
         (bird.x < pipeTop.x + pipeTop.width &&
@@ -185,11 +191,11 @@ function collision(bird, pipe) {
 // Game Over display
 function displayGameOver() {
     ctx.fillStyle = '#FFFFFF';
-    ctx.font = '32px Arial';
+    ctx.font = '28px Arial';
     ctx.textAlign = 'center';
-    ctx.fillText('Game Over', 360 / 2, 640 / 2);
-    ctx.fillText(`Score: ${Math.floor(score)}`, 360 / 2, 640 / 2 + 40);
-    ctx.fillText(`High Score: ${highScore}`, 360 / 2, 640 / 2 + 80);
+    ctx.fillText('Game Over', canvasWidth / 2, canvasHeight / 2);
+    ctx.fillText(`Score: ${Math.floor(score)}`, canvasWidth / 2, canvasHeight / 2 + 40);
+    ctx.fillText(`High Score: ${highScore}`, canvasWidth / 2, canvasHeight / 2 + 80);
 
     // Create a button overlay to close the game and return to projects
     const returnButton = document.createElement("button");
@@ -207,8 +213,8 @@ function displayGameOver() {
 
     // Event listener to close modal and remove button when clicked
     returnButton.addEventListener("click", () => {
-        closeGameModal(); // Close the game modal
-        returnButton.remove(); // Remove the button after click
+        closeGameModal();
+        returnButton.remove();
     });
 }
 
@@ -236,7 +242,7 @@ document.addEventListener('keydown', (event) => {
         } else if (gameOver) {
             startGame();
         } else {
-            bird.velocityY = -9; // Flap if the game is running
+            bird.velocityY = -9;
         }
     }
 });
@@ -245,7 +251,7 @@ document.addEventListener('keydown', (event) => {
 function initializeGame() {
     if (initializeCanvas()) {
         loadHighScore();
-        drawStartPrompt(); // Show the start prompt on initial load
+        drawStartPrompt();
     }
 }
 
