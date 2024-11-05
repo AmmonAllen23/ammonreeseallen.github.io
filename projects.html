@@ -12,6 +12,13 @@
 
     <section class="Featured Projects">
         <h2>Featured Projects</h2>
+        
+        <!-- Flappy Bird Icon -->
+        <div class="project-icon" onclick="openGameModal()">
+            <img src="images/flappyLogo.jpg" alt="Flappy Bird Icon">
+            <p>Flappy Bird Game</p>
+        </div>
+
     </section>
 
     <section class="Personal Projects">
@@ -23,10 +30,20 @@
         <h2>University Projects</h2>
     </section>
 
+     <!-- Game Modal -->
+     <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeGameModal()">&times;</span>
+            <canvas id="gameCanvas" width="360" height="640"></canvas>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2024 Ammon Reese Allen</p>
     </footer>
     
+    <script src="assets/js/flappyBird.js"></script>
+    <script src="assets/js/modal.js"></script>
     <script>
         fetch('includes/navbar.html')
             .then(response => {
