@@ -69,6 +69,11 @@ function gameLoop(timestamp) {
 // Start or Restart the Game
 function startGame() {
     if (!initializeCanvas()) return; // Check if the canvas was initialized
+
+    // Remove "Return to Projects" button if it exists
+    const existingButton = document.querySelector('button');
+    if (existingButton) existingButton.remove();
+
     bird.y = 640 / 2;
     bird.velocityY = 0;
     pipes.length = 0;
