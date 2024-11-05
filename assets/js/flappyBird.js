@@ -47,10 +47,12 @@ const pipes = [];
 
 // Start the game with a prompt
 function drawStartPrompt() {
-    ctx.fillStyle = "#FFFFFF";
-    ctx.font = "24px Arial";
-    ctx.textAlign = "center";
-    ctx.fillText("Press SPACE to Start", 360 / 2, 640 / 2);
+    if (ctx) {
+        ctx.fillStyle = "#FFFFFF";
+        ctx.font = "24px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText("Press SPACE to Start", 360 / 2, 640 / 2);
+    }
 }
 
 // Game Loop
@@ -238,6 +240,13 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-// Initialize game when modal opens
-loadHighScore();
-drawStartPrompt(); // Show the start prompt on initial load
+// Initialize game on page load
+function initializeGame() {
+    if (initializeCanvas()) {
+        loadHighScore();
+        drawStartPrompt(); // Show the start prompt on initial load
+    }
+}
+
+// Call initializeGame to set up the canvas and prompt
+initializeGame();
