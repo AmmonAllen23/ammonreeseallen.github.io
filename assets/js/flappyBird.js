@@ -1,9 +1,8 @@
 // Canvas and context
 let canvas, ctx;
 
-// Set the canvas dimensions (adjusted for a smaller size)
-const canvasWidth = 320;
-const canvasHeight = 480;
+// Responsive canvas dimensions
+let canvasWidth, canvasHeight;
 
 // Function to initialize the game canvas and context
 function initializeCanvas() {
@@ -12,6 +11,10 @@ function initializeCanvas() {
         console.error("Game canvas not found.");
         return false;
     }
+
+    // Set canvas dimensions based on window size
+    canvasWidth = Math.min(window.innerWidth * 0.8, 400); // Max width 400px, adjust for viewport
+    canvasHeight = canvasWidth * 1.5; // Maintain aspect ratio (3:4)
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     ctx = canvas.getContext('2d');
@@ -24,7 +27,7 @@ let gameOver = false;
 let score = 0;
 let highScore = 0;
 let gravity = 0.5;
-let pipeSpeed = -3; // Adjusted speed to suit the smaller screen
+let pipeSpeed = -3; 
 let pipeGap = canvasHeight / 4;
 let lastPipeTime = 0;
 let lastTimestamp = 0;
@@ -101,8 +104,8 @@ function draw() {
 
     // Draw pipes
     pipes.forEach(pipe => {
-        ctx.drawImage(topPipeImg, Math.round(pipe.x), pipe.y, 52, 400);
-        ctx.drawImage(bottomPipeImg, Math.round(pipe.x), pipe.y + 400 + pipeGap, 52, 400);
+        ctx.drawImage(topPipeImg, Math.round(pipe.x), pipe.y, 52, canvasHeight * 0.7);
+        ctx.drawImage(bottomPipeImg, Math.round(pipe.x), pipe.y + canvasHeight * 0.7 + pipeGap, 52, canvasHeight * 0.7);
     });
 
     // Draw bird
@@ -166,15 +169,15 @@ function update(deltaTime) {
 
 // Pipe creation
 function createPipe() {
-    const pipeY = -Math.floor(Math.random() * 200) - 100;
+    const pipeY = -Math.floor(Math.random() * (canvasHeight / 2)) - 100;
     pipes.push({ x: canvasWidth, y: pipeY, passed: false });
-    pipes.push({ x: canvasWidth, y: pipeY + 400 + pipeGap, passed: false });
+    pipes.push({ x: canvasWidth, y: pipeY + canvasHeight * 0.7 + pipeGap, passed: false });
 }
 
 // Collision detection
 function collision(bird, pipe) {
-    const pipeTop = { x: pipe.x, y: pipe.y, width: 52, height: 400 };
-    const pipeBottom = { x: pipe.x, y: pipe.y + 400 + pipeGap, width: 52, height: 400 };
+    const pipeTop = { x: pipe.x, y: pipe.y, width: 52, height: canvasHeight * 0.7 };
+    const pipeBottom = { x: pipe.x, y: pipe.y + canvasHeight * 0.7 + pipeGap, width: 52, height: canvasHeight * 0.7 };
 
     return (
         (bird.x < pipeTop.x + pipeTop.width &&
