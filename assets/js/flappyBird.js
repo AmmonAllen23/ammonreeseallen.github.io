@@ -60,10 +60,10 @@ function initializeCanvas() {
     canvas.height = canvasHeight;
     ctx = canvas.getContext('2d');
 
-    // Shift the canvas down slightly with a top margin
-    canvas.style.marginTop = "40px";
+    // Shift the canvas down with an additional top margin
+    canvas.style.marginTop = "30px";
 
-    // Adjust the pipe gap based on the new canvas height (slightly increased)
+    // Adjust the pipe gap for easier play
     pipeGap = canvasHeight / 4;
 
     return true;
@@ -227,20 +227,22 @@ function displayGameOver() {
     ctx.fillText(`Score: ${Math.floor(score)}`, canvasWidth / 2, canvasHeight / 2 + 40);
     ctx.fillText(`High Score: ${highScore}`, canvasWidth / 2, canvasHeight / 2 + 80);
 
-    // Create "Return to Projects" button
+    // Create "Return to Projects" button as a child of the canvas
     const returnButton = document.createElement("button");
     returnButton.id = "returnButton";
     returnButton.textContent = "Return to Projects";
     returnButton.style.position = "absolute";
-    returnButton.style.top = "50%";
-    returnButton.style.left = "50%";
-    returnButton.style.transform = "translate(-50%, 50px)";
+    returnButton.style.top = `${canvasHeight / 2 + 40}px`;
+    returnButton.style.left = `${canvasWidth / 2 - 50}px`; // Adjust for centering
     returnButton.style.padding = "10px 20px";
     returnButton.style.fontSize = "16px";
     returnButton.style.cursor = "pointer";
     returnButton.style.zIndex = "1000";
-    document.body.appendChild(returnButton);
+    
+    // Append the button directly to the canvas parent element
+    canvas.parentNode.appendChild(returnButton);
 
+    // Event listener to close modal and remove button when clicked
     returnButton.addEventListener("click", () => {
         closeGameModal();
         returnButton.remove();
@@ -271,7 +273,7 @@ document.addEventListener('keydown', (event) => {
         } else if (gameOver) {
             startGame();
         } else {
-            bird.velocityY = -8.5;
+            bird.velocityY = -9;
         }
     }
 });
