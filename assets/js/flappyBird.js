@@ -73,8 +73,8 @@ function startGame() {
     if (!initializeCanvas()) return; // Check if the canvas was initialized
 
     // Remove "Return to Projects" button if it exists
-    const existingButton = document.querySelector('button');
-    if (existingButton) existingButton.remove();
+    const returnButton = document.getElementById("returnButton");
+    if (returnButton) returnButton.remove();
 
     bird.y = 640 / 2;
     bird.velocityY = 0;
@@ -193,6 +193,7 @@ function displayGameOver() {
 
     // Create a button overlay to close the game and return to projects
     const returnButton = document.createElement("button");
+    returnButton.id = "returnButton";
     returnButton.textContent = "Return to Projects";
     returnButton.style.position = "absolute";
     returnButton.style.top = "50%";
