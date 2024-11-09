@@ -278,6 +278,18 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
+// Handle touch event for mobile users
+document.getElementById('gameCanvas').addEventListener('touchstart', (event) => {
+    event.preventDefault(); // Prevents default touch behavior like scrolling
+    if (!gameStarted) {
+        startGame();
+    } else if (gameOver) {
+        startGame();
+    } else {
+        bird.velocityY = -9; // Trigger jump action
+    }
+});
+
 // Initialize game on page load
 function initializeGame() {
     preloadImages(images, (loadedImages) => {
