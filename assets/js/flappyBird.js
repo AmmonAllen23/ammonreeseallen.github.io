@@ -232,7 +232,7 @@ function displayGameOver() {
     returnButton.id = "returnButton";
     returnButton.textContent = "Return to Projects";
     returnButton.style.position = "absolute";
-    returnButton.style.top = `${canvasHeight / 2 + 40}px`;
+    returnButton.style.top = `${canvasHeight / 2 + 180}px`; // Moved up to show score and high score
     returnButton.style.left = `${canvasWidth / 2 - 50}px`; // Adjust for centering
     returnButton.style.padding = "10px 20px";
     returnButton.style.fontSize = "16px";
@@ -248,6 +248,7 @@ function displayGameOver() {
         returnButton.remove();
     });
 }
+
 
 // Check and update high score
 function checkHighScore() {
