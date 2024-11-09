@@ -42,20 +42,27 @@ h1 {
     /* Make the canvas responsive to viewport */
     width: 360px; /* Match the dimensions in JavaScript */
     height: 640px;
+    
 }
 
-/* Modal styling */
+/* Modal Styling */
 .modal {
-    display: none; /* Hidden by default */
+    display: flex;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    top: 10vh; /* Move the modal down by 10% of the viewport height */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90vw; /* Width to fit smaller screens */
+    max-width: 500px; /* Maximum width for large screens */
+    height: 80vh; /* Constrain height to 80% of the viewport */
+    background-color: rgba(0, 0, 0, 0.85); /* Dark background for visibility */
+    border: 2px solid #FFD700; /* Golden border to visualize the boundaries */
     justify-content: center;
     align-items: center;
-    z-index: 10;
+    z-index: 2000; /* High z-index to be on top */
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto; /* Enable scrolling within the modal */
 }
 
 .modal-content {
@@ -66,17 +73,19 @@ h1 {
     background-color: #000; /* Keeps it black */
     padding: 20px;
     border-radius: 8px;
-    width: fit-content;
-    max-width: 100%;
+    width: 100%; /* Fit within the modal */
+    max-height: 100%; /* Constrain within modal boundaries */
+    overflow-y: auto; /* Enable scrolling within the modal content */
 }
 
 .close {
     position: absolute;
-    top: 10px;
-    right: 15px;
-    color: #fff;
+    top: 20px; /* Set inside the modal */
+    right: 20px;
+    color: #FFD700; /* High contrast for visibility */
     font-size: 28px;
     cursor: pointer;
+    z-index: 2001; /* Ensure it’s above all other elements */
 }
 
 /* Centering the icon and making it clickable */

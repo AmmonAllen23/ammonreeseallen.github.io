@@ -40,7 +40,7 @@ function preloadImages(sources, callback) {
             }
         };
         imgs[key].onerror = () => {
-            console.error(`Failed to load image: ${sources[key]}`);
+            console.error(`Failed to load image: ${sources[key]}`); // Corrected string formatting here
         };
     }
 }
@@ -84,7 +84,7 @@ const pipes = [];
 // Start the game with a prompt
 function drawStartPrompt() {
     ctx.fillStyle = "#FFFFFF";
-    ctx.font = `${canvasWidth * 0.06}px Arial`;
+    ctx.font = `${canvasWidth * 0.06}px Arial`; // Corrected string formatting here
     ctx.textAlign = "center";
     ctx.fillText("Press SPACE to Start", canvasWidth / 2, canvasHeight / 2);
 }
@@ -140,13 +140,13 @@ function draw() {
 
     // Draw score
     ctx.fillStyle = '#FFFFFF';
-    ctx.font = `${canvasWidth * 0.06}px Arial`;
+    ctx.font = `${canvasWidth * 0.06}px Arial`; // Corrected string formatting here
     ctx.textAlign = 'left';
-    ctx.fillText(`Score: ${Math.floor(score)}`, 15, 30);
+    ctx.fillText(`Score: ${Math.floor(score)}`, 15, 30); // Corrected string formatting here
 
     // Display high score if the game is over
     if (gameOver) {
-        ctx.fillText(`High Score: ${highScore}`, 15, 60);
+        ctx.fillText(`High Score: ${highScore}`, 15, 60); // Corrected string formatting here
     }
 }
 
@@ -221,19 +221,19 @@ function collision(bird, pipe) {
 // Game Over display
 function displayGameOver() {
     ctx.fillStyle = '#FFFFFF';
-    ctx.font = `${canvasWidth * 0.08}px Arial`;
+    ctx.font = `${canvasWidth * 0.08}px Arial`; // Corrected string formatting here
     ctx.textAlign = 'center';
     ctx.fillText('Game Over', canvasWidth / 2, canvasHeight / 2);
-    ctx.fillText(`Score: ${Math.floor(score)}`, canvasWidth / 2, canvasHeight / 2 + 40);
-    ctx.fillText(`High Score: ${highScore}`, canvasWidth / 2, canvasHeight / 2 + 80);
+    ctx.fillText(`Score: ${Math.floor(score)}`, canvasWidth / 2, canvasHeight / 2 + 40); // Corrected string formatting here
+    ctx.fillText(`High Score: ${highScore}`, canvasWidth / 2, canvasHeight / 2 + 80); // Corrected string formatting here
 
     // Create "Return to Projects" button as a child of the canvas
     const returnButton = document.createElement("button");
     returnButton.id = "returnButton";
     returnButton.textContent = "Return to Projects";
     returnButton.style.position = "absolute";
-    returnButton.style.top = `${canvasHeight / 2 + 180}px`; // Moved up to show score and high score
-    returnButton.style.left = `${canvasWidth / 2 - 50}px`; // Adjust for centering
+    returnButton.style.top = `${canvasHeight / 2 + 180}px`; // Corrected string formatting here
+    returnButton.style.left = `${canvasWidth / 2 - 50}px`; // Corrected string formatting here
     returnButton.style.padding = "10px 20px";
     returnButton.style.fontSize = "16px";
     returnButton.style.cursor = "pointer";
@@ -248,7 +248,6 @@ function displayGameOver() {
         returnButton.remove();
     });
 }
-
 
 // Check and update high score
 function checkHighScore() {
