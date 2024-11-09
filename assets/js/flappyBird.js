@@ -280,13 +280,18 @@ document.addEventListener('keydown', (event) => {
 
 // Handle touch event for mobile users
 document.getElementById('gameCanvas').addEventListener('touchstart', (event) => {
-    event.preventDefault(); // Prevents default touch behavior like scrolling
+    event.preventDefault(); // Prevents scrolling behavior
+    console.log("Touch detected"); // Debugging line
+
     if (!gameStarted) {
+        console.log("Starting game from touch"); // Debugging line
         startGame();
     } else if (gameOver) {
+        console.log("Restarting game from touch"); // Debugging line
         startGame();
     } else {
-        bird.velocityY = -9; // Trigger jump action
+        console.log("Jump triggered from touch"); // Debugging line
+        bird.velocityY = -9; // Trigger jump
     }
 });
 
