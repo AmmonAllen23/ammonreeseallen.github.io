@@ -28,6 +28,49 @@
 
     <section class="University Projects">
         <h2>University Projects</h2>
+
+        <div class="project">
+            <h3>Pattern Matching Program</h3>
+            <p>
+              This program checks if a given string contains a specified pattern as a substring.
+              It's an example of basic Java string manipulation and algorithm implementation.
+            </p>
+            <div class="code-preview">
+              <pre>
+        public static boolean s1ContainsS2(String s1, String s2) {
+            boolean matchFound = false;
+            int length1 = s1.length();
+            int length2 = s2.length();
+        
+            if (length2 > length1) return matchFound;
+        
+            for (int i = 0; i <= length1 - length2; i++) {
+                int j;
+                for (j = 0; j < length2; j++) {
+                    if (s1.charAt(i + j) != s2.charAt(j)) {
+                        break;
+                    }
+                }
+                if (j == length2) {
+                    matchFound = true;
+                    break;
+                }
+            }
+            return matchFound;
+        }
+              </pre>
+            </div>
+            <a href="assets/files/PatternMatching.java" download>Download Code</a>
+          </div>
+          <div id="demo">
+            <h4>Try the Pattern Matching Program:</h4>
+            <label for="string1">Enter a string:</label>
+            <input type="text" id="string1" placeholder="e.g., Hello world" />
+            <label for="string2">Enter a pattern:</label>
+            <input type="text" id="string2" placeholder="e.g., world" />
+            <button onclick="checkPattern()">Check Match</button>
+            <p id="result"></p>
+          </div>
     </section>
 
      <!-- Game Modal -->
@@ -57,6 +100,7 @@
             })
             .catch(error => console.error('Error loading navbar:', error));
         </script>
+        <script src="assets/js/patternMatchDemo.js"></script>
 
 </body>
 </html>

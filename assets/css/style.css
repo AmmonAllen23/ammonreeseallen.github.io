@@ -255,3 +255,102 @@ a:hover {
     border: 2px solid #333;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
+
+#university-projects {
+    margin: 2rem 0;
+    color: #e0e0e0; /* Light gray for text to contrast with dark background */
+  }
+  
+  .project {
+    border: 1px solid #444; /* Subtle border to define sections */
+    border-radius: 8px;
+    padding: 1.5rem;
+    background: linear-gradient(145deg, #1b1b2f, #121223); /* Gradient for a sleek, spacey look */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6); /* Depth effect */
+  }
+  
+  .project h3 {
+    color: #f5d742; /* Bright yellow-gold for highlights */
+    font-family: 'Arial', sans-serif; /* Clean, modern font */
+  }
+  
+  .code-preview {
+    background-color: #24243e; /* Deep blue-violet for code block */
+    padding: 1.2rem;
+    border-radius: 5px;
+    overflow-x: auto; /* Allows horizontal scrolling if needed */
+    font-family: 'Courier New', Courier, monospace; /* Classic monospaced font for code */
+    color: #a9b7c6; /* Soft white-blue for code text */
+    border: 1px solid #333; /* Subtle border around the code block */
+  }
+  
+  .project a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #f5d742; /* Matches the project title color */
+    text-decoration: none;
+    font-weight: bold;
+    background-color: #121223; /* Button background matches the dark theme */
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  .project a:hover {
+    background-color: #f5d742; /* Highlight effect on hover */
+    color: #121223; /* Inverts text color for hover */
+    transform: scale(1.05); /* Slight scaling effect on hover */
+    text-decoration: none;
+  }
+  
+  #demo {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: #1e1e38; /* Dark violet-gray for interactive section */
+    border: 1px solid #444;
+    border-radius: 8px;
+  }
+  
+  #demo h4 {
+    color: #e0e0e0;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  #demo label {
+    display: block;
+    color: #a9b7c6;
+    margin-bottom: 0.5rem;
+  }
+  
+  #demo input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background-color: #2a2a40;
+    color: #e0e0e0;
+  }
+  
+  #demo button {
+    padding: 0.5rem 1rem;
+    color: #121223;
+    background-color: #f5d742;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  #demo button:hover {
+    background-color: #ffd700; /* Slightly brighter yellow on hover */
+    transform: scale(1.05);
+  }
+  
+  #demo p {
+    color: #f5d742; /* Highlight color for result text */
+    font-weight: bold;
+    margin-top: 1rem;
+  }
