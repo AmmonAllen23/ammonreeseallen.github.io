@@ -152,8 +152,8 @@ body {
     text-decoration: underline;
 }
 
-/* Download Button Styling */
-#download-resume {
+/* Download Buttons Styling */
+.download-button {
     background-color: #333;
     color: #FFD700;
     border: 1px solid #FFD700;
@@ -165,11 +165,18 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-#download-resume:hover {
+/* Hover effect */
+.download-button:hover {
     background-color: #FFD700;
     color: #333;
 }
 
+/* Flexbox to align buttons side by side */
+.download-container {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+    margin-top: 1rem;
+}
 /* Section Styling */
 section {
     max-width: 800px;

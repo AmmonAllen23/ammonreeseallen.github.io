@@ -13,7 +13,13 @@
         <h1>Ammon Allen</h1>
         <p>Contact: <a href="mailto:ammonallen15@gmail.com">ammonallen15@gmail.com</a></p>
         <p>LinkedIn: <a href="https://www.linkedin.com/in/ammon-allen-2a7566247?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank">Ammon Allen</a> | GitHub: <a href="https://github.com/AmmonAllen23" target="_blank">AmmonAllen23</a></p>
-        <button id="download-resume">Download Resume (Word)</button>
+        
+        <!-- Flex container for buttons -->
+    <div class="download-container">
+        <button id="download-resume-docx" class="download-button">Download Resume (Word)</button>
+        <button id="download-resume-pdf" class="download-button">Download Resume (PDF)</button>
+    </div>
+        
     </header>
 
     
@@ -85,10 +91,15 @@
     </footer>
 
     <script>
-        // Script to handle resume download
-        document.getElementById('download-resume').onclick = function() {
-            window.location.href = 'assets/files/Application-Ready-Resume.docx';
-        };
+        // Resume Download Buttons
+document.getElementById('download-resume-docx').onclick = function() {
+    window.location.href = 'assets/files/Application-Ready-Resume.docx';
+};
+
+document.getElementById('download-resume-pdf').onclick = function() {
+    window.location.href = 'assets/files/Application-Ready-Resume (pdf).pdf';
+};
+    
     </script>
     <script>
         fetch('includes/navbar.html')
